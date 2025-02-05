@@ -50,3 +50,41 @@ $ausgabe = "<table>
 return $ausgabe;	
 }
 ?>
+
+<?php
+function nummerisch_füllen($dat)
+{
+	$fp = fopen($dat,'r');
+	$zeile = trim(fgets($fp));
+	$spalte = explode(';',$zeile);
+	$i = 0;
+	$füllen = array();
+		while(!feof($fp))
+		{
+			$füllen[$i] = $zeile;
+			$zeile = trim(fgets($fp));
+			$spalte = explode(';',$zeile);
+			$i++;
+		}
+	fclose($fp)
+	return $füllen;
+}
+?>
+
+<?php 
+function assoziativ_füllen($dat)
+{
+	$fp = fopen($dat,'r');
+	$zeile = trim(fgets($fp));
+	$spalte = explode(';',$zeile);
+	$füllen = array();
+		while(!feof($fp))
+		{
+			$füllen[$spalte[0]] = $spalte[1];
+			$zeile = trim(fgets($fp));
+			$spalte = explode(';',$zeile);
+		}
+	fclose($fp);
+	return $füllen;
+}
+?>
