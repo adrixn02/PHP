@@ -2,19 +2,27 @@
 function liste_fuellen($daf,$list,$size,$anz_pos,$sel=1)
 {
 $liste = fopen($daf,'r');
+	
 $zeile = trim(fgets($liste));
 $spalte = explode(';',$zeile);
-$i=1;
+	
+$i = 1;
+	
 $ausgabe="<select name=$list size=$size>";
+	
 while(!feof($liste))
 	{
-	if($i==$sel)
-	{$ausgabe.="<option value=$zeile selected> $spalte[$anz_pos] </option>";}
+	if($sel == $i)
+	{
+	$ausgabe.="<option value=$zeile selected> $spalte[$anz_pos] </option>";
+	}
 	else
-	{$ausgabe.="<option value=$zeile> $spalte[$anz_pos] </option>";}	
-	$i++;
+	{
+	$ausgabe.="<option value=$zeile> $spalte[$anz_pos] </option>";	
+	}
 	$zeile = trim(fgets($liste));
 	$spalte = explode(';',$zeile);
+	$i++;
 	}
 $ausgabe.="</select>";
 fclose($liste);
@@ -28,25 +36,19 @@ $fp= fopen($dat,'r');
 $zeile = trim(fgets($fp));
 $spalte = explode(';',$zeile);
 $gefunden = false;
-$ausgabe = "<table>
-				<thead>
-					<tr>";
+$ausgabe= false;
 		while(!feof($fp))
 		{
 			if($spalte[$key_pos]==$keywert)
 			{
 				$gefunden = true;
-				$ausgabe.= $zeile
+				$ausgabe = $zeile;
+				break;
 			}
 			$zeile = trim(fgets($fp));
 			$spalte = explode(';',$zeile);
 		}			
-	if($gefunden==true)
-	{
-		$ausgabe.="</tr>
-					</thead>
-						</table>";
-	}
+fclose($fp);
 return $ausgabe;	
 }
 ?>
